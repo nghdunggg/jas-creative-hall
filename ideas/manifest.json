@@ -1,5 +1,15 @@
 [
   {
+    "title": "Hello 4 testing",
+    "category": "Uncategorized",
+    "content": "Hello",
+    "tags": [
+      "Hello"
+    ],
+    "date": "2026-04-26T18:18:01.739Z",
+    "file": "hello-4-testing-1777227481740.html"
+  },
+  {
     "title": "Nghiên cứu và phân tích dữ liệu ngân hàng VIB, Techcombank, TPBank",
     "category": "Data Science",
     "content": "Thu thập annual report và phân tích sự phát triển, doanh số, danh tiếng,... của hai ngân hàng VIB và Techcombank trước và sau khi đầu tư làm nhà tài trợ cho các chương trình truyền hình thực tế, conce",
