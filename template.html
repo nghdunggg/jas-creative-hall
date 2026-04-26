@@ -8,94 +8,118 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #3a2f2a;
-      --surface: #4a3f38;
-      --surface2: #574a42;
-      --text: #d4c5b8;
-      --text-dim: #8a7a70;
-      --accent: #c9a882;
-      --border: rgba(201,168,130,0.15);
+      --bg: #2e2520; --bg2: #3a2f2a; --surface: #4a3f38;
+      --surface2: #574a42; --text: #d4c5b8; --text-dim: #8a7a70;
+      --accent: #c9a882; --border: rgba(201,168,130,0.15);
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: var(--bg);
-      color: var(--text);
+      background: var(--bg); color: var(--text);
       font-family: 'Cormorant Garamond', Georgia, serif;
-      min-height: 100vh;
-      padding: 2rem;
+      min-height: 100vh; padding: 2rem 1rem;
     }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: 0.4;
+    }
+    .page { max-width: 800px; margin: 0 auto; position: relative; z-index: 1; }
     .back-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--text-dim);
-      text-decoration: none;
-      font-family: 'Caveat', cursive;
-      font-size: 1.1rem;
-      margin-bottom: 2rem;
-      transition: color 0.2s;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      color: var(--text-dim); text-decoration: none;
+      font-family: 'Caveat', cursive; font-size: 1.1rem;
+      margin-bottom: 2rem; transition: color 0.2s;
     }
     .back-link:hover { color: var(--accent); }
     .card {
-      max-width: 780px;
-      margin: 0 auto;
-      background: var(--surface);
-      border-radius: 18px;
-      padding: 3rem;
-      border: 1px solid var(--border);
-      box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+      background: var(--surface); border-radius: 20px;
+      padding: 2.8rem; border: 1px solid var(--border);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.35); margin-bottom: 1.5rem;
     }
     .category-tag {
-      display: inline-block;
-      background: var(--surface2);
-      color: var(--accent);
-      font-family: 'Caveat', cursive;
-      font-size: 0.95rem;
-      padding: 0.3rem 1rem;
-      border-radius: 20px;
-      margin-bottom: 1.5rem;
+      display: inline-block; background: var(--surface2);
+      color: var(--accent); font-family: 'Caveat', cursive;
+      font-size: 0.95rem; padding: 0.3rem 1rem;
+      border-radius: 20px; margin-bottom: 1.5rem;
       border: 1px solid var(--border);
     }
     h1 {
-      font-size: 2.8rem;
-      font-weight: 300;
-      letter-spacing: 0.02em;
-      color: var(--accent);
-      margin-bottom: 0.5rem;
-      font-style: italic;
+      font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 300;
+      letter-spacing: 0.02em; color: var(--accent);
+      margin-bottom: 0.5rem; font-style: italic;
     }
-    .meta {
-      color: var(--text-dim);
-      font-size: 0.95rem;
-      margin-bottom: 2rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px solid var(--border);
+    .meta { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+    .content { font-size: 1.15rem; line-height: 1.85; white-space: pre-wrap; }
+    .tags { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tag { background: var(--surface2); color: var(--text-dim); font-family: 'Caveat', cursive; padding: 0.2rem 0.8rem; border-radius: 12px; font-size: 0.9rem; }
+
+    .section-card {
+      background: var(--surface); border-radius: 20px;
+      padding: 1.8rem 2.2rem; border: 1px solid var(--border);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.25); margin-bottom: 1.5rem;
     }
-    .content {
-      font-size: 1.2rem;
-      line-height: 1.8;
-      white-space: pre-wrap;
+    .section-title {
+      font-family: 'Caveat', cursive; font-size: 1.35rem;
+      color: var(--accent); margin-bottom: 1.2rem;
+      padding-bottom: 0.7rem; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 0.5rem;
     }
-    .tags {
-      margin-top: 2rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
+
+    /* images */
+    .images-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 1rem; }
+    .img-item {
+      border-radius: 12px; overflow: hidden; border: 1px solid var(--border);
+      background: var(--bg2); cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    .tag {
-      background: var(--surface2);
-      color: var(--text-dim);
-      font-family: 'Caveat', cursive;
-      padding: 0.2rem 0.8rem;
-      border-radius: 12px;
-      font-size: 0.9rem;
+    .img-item:hover { transform: scale(1.02); box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+    .img-item img { width: 100%; height: 155px; object-fit: cover; display: block; }
+    .img-caption { font-family: 'Caveat', cursive; font-size: 0.88rem; color: var(--text-dim); padding: 0.5rem 0.8rem; text-align: center; }
+
+    /* references */
+    .ref-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .ref-item {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 0.85rem 1.1rem;
+      display: flex; align-items: flex-start; gap: 0.8rem;
+      text-decoration: none; color: inherit;
+      transition: border-color 0.2s, background 0.2s;
     }
+    .ref-item:hover { border-color: rgba(201,168,130,0.4); background: var(--surface2); }
+    .ref-icon {
+      font-size: 1.1rem; flex-shrink: 0; width: 30px; height: 30px;
+      background: var(--surface2); border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ref-body { flex: 1; min-width: 0; }
+    .ref-label { font-family: 'Caveat', cursive; font-size: 1.05rem; color: var(--accent); }
+    .ref-url { font-size: 0.8rem; color: var(--text-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-top: 0.1rem; }
+    .ref-note { font-size: 0.92rem; color: var(--text-dim); margin-top: 0.25rem; font-style: italic; }
+
+    /* lightbox */
+    #lightbox {
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(10,6,4,0.93); backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    #lightbox.open { opacity: 1; pointer-events: all; }
+    #lightbox img { max-width: 92vw; max-height: 90vh; border-radius: 12px; box-shadow: 0 20px 80px rgba(0,0,0,0.6); }
+    #lb-close {
+      position: absolute; top: 1.2rem; right: 1.2rem;
+      font-size: 1.4rem; color: var(--text-dim); cursor: pointer;
+      background: var(--surface); width: 40px; height: 40px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      transition: color 0.2s; border: 1px solid var(--border);
+    }
+    #lb-close:hover { color: var(--accent); }
+    .no-content { color: var(--text-dim); font-style: italic; font-size: 1rem; }
   </style>
 </head>
 <body>
+<div class="page">
   <a class="back-link" href="../index.html">← Back to Hall</a>
+
   <div class="card">
     <span class="category-tag">{{CATEGORY}}</span>
     <h1>{{TITLE}}</h1>
@@ -103,5 +127,165 @@
     <div class="content">{{CONTENT}}</div>
     <div class="tags">{{TAGS}}</div>
   </div>
+
+  {{IMAGES_SECTION}}
+
+  {{REFS_SECTION}}
+</div>
+
+<div id="lightbox" onclick="closeLb()">
+  <div id="lb-close" onclick="closeLb()">✕</div>
+  <img id="lb-img" src="" alt="">
+</div>
+<script>
+function openLb(src){ document.getElementById('lb-img').src=src; document.getElementById('lightbox').classList.add('open'); }
+function closeLb(){ document.getElementById('lightbox').classList.remove('open'); }
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeLb(); });
+</script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{{TITLE}} — Creative Hall</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #2e2520; --bg2: #3a2f2a; --surface: #4a3f38;
+      --surface2: #574a42; --text: #d4c5b8; --text-dim: #8a7a70;
+      --accent: #c9a882; --border: rgba(201,168,130,0.15);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      min-height: 100vh; padding: 2rem 1rem;
+    }
+    body::before {
+      content: ''; position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: 0.4;
+    }
+    .page { max-width: 800px; margin: 0 auto; position: relative; z-index: 1; }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      color: var(--text-dim); text-decoration: none;
+      font-family: 'Caveat', cursive; font-size: 1.1rem;
+      margin-bottom: 2rem; transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+    .card {
+      background: var(--surface); border-radius: 20px;
+      padding: 2.8rem; border: 1px solid var(--border);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.35); margin-bottom: 1.5rem;
+    }
+    .category-tag {
+      display: inline-block; background: var(--surface2);
+      color: var(--accent); font-family: 'Caveat', cursive;
+      font-size: 0.95rem; padding: 0.3rem 1rem;
+      border-radius: 20px; margin-bottom: 1.5rem;
+      border: 1px solid var(--border);
+    }
+    h1 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 300;
+      letter-spacing: 0.02em; color: var(--accent);
+      margin-bottom: 0.5rem; font-style: italic;
+    }
+    .meta { color: var(--text-dim); font-size: 0.9rem; margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+    .content { font-size: 1.15rem; line-height: 1.85; white-space: pre-wrap; }
+    .tags { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .tag { background: var(--surface2); color: var(--text-dim); font-family: 'Caveat', cursive; padding: 0.2rem 0.8rem; border-radius: 12px; font-size: 0.9rem; }
+
+    .section-card {
+      background: var(--surface); border-radius: 20px;
+      padding: 1.8rem 2.2rem; border: 1px solid var(--border);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.25); margin-bottom: 1.5rem;
+    }
+    .section-title {
+      font-family: 'Caveat', cursive; font-size: 1.35rem;
+      color: var(--accent); margin-bottom: 1.2rem;
+      padding-bottom: 0.7rem; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 0.5rem;
+    }
+
+    /* images */
+    .images-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 1rem; }
+    .img-item {
+      border-radius: 12px; overflow: hidden; border: 1px solid var(--border);
+      background: var(--bg2); cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .img-item:hover { transform: scale(1.02); box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+    .img-item img { width: 100%; height: 155px; object-fit: cover; display: block; }
+    .img-caption { font-family: 'Caveat', cursive; font-size: 0.88rem; color: var(--text-dim); padding: 0.5rem 0.8rem; text-align: center; }
+
+    /* references */
+    .ref-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .ref-item {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 12px; padding: 0.85rem 1.1rem;
+      display: flex; align-items: flex-start; gap: 0.8rem;
+      text-decoration: none; color: inherit;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .ref-item:hover { border-color: rgba(201,168,130,0.4); background: var(--surface2); }
+    .ref-icon {
+      font-size: 1.1rem; flex-shrink: 0; width: 30px; height: 30px;
+      background: var(--surface2); border-radius: 7px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ref-body { flex: 1; min-width: 0; }
+    .ref-label { font-family: 'Caveat', cursive; font-size: 1.05rem; color: var(--accent); }
+    .ref-url { font-size: 0.8rem; color: var(--text-dim); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin-top: 0.1rem; }
+    .ref-note { font-size: 0.92rem; color: var(--text-dim); margin-top: 0.25rem; font-style: italic; }
+
+    /* lightbox */
+    #lightbox {
+      position: fixed; inset: 0; z-index: 999;
+      background: rgba(10,6,4,0.93); backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    #lightbox.open { opacity: 1; pointer-events: all; }
+    #lightbox img { max-width: 92vw; max-height: 90vh; border-radius: 12px; box-shadow: 0 20px 80px rgba(0,0,0,0.6); }
+    #lb-close {
+      position: absolute; top: 1.2rem; right: 1.2rem;
+      font-size: 1.4rem; color: var(--text-dim); cursor: pointer;
+      background: var(--surface); width: 40px; height: 40px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      transition: color 0.2s; border: 1px solid var(--border);
+    }
+    #lb-close:hover { color: var(--accent); }
+    .no-content { color: var(--text-dim); font-style: italic; font-size: 1rem; }
+  </style>
+</head>
+<body>
+<div class="page">
+  <a class="back-link" href="../index.html">← Back to Hall</a>
+
+  <div class="card">
+    <span class="category-tag">{{CATEGORY}}</span>
+    <h1>{{TITLE}}</h1>
+    <div class="meta">{{DATE}}</div>
+    <div class="content">{{CONTENT}}</div>
+    <div class="tags">{{TAGS}}</div>
+  </div>
+
+  {{IMAGES_SECTION}}
+
+  {{REFS_SECTION}}
+</div>
+
+<div id="lightbox" onclick="closeLb()">
+  <div id="lb-close" onclick="closeLb()">✕</div>
+  <img id="lb-img" src="" alt="">
+</div>
+<script>
+function openLb(src){ document.getElementById('lb-img').src=src; document.getElementById('lightbox').classList.add('open'); }
+function closeLb(){ document.getElementById('lightbox').classList.remove('open'); }
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeLb(); });
+</script>
 </body>
 </html>
