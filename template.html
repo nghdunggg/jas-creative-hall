@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{{TITLE}} — Creative Hall</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Caveat:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #3a2f2a;
+      --surface: #4a3f38;
+      --surface2: #574a42;
+      --text: #d4c5b8;
+      --text-dim: #8a7a70;
+      --accent: #c9a882;
+      --border: rgba(201,168,130,0.15);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--text-dim);
+      text-decoration: none;
+      font-family: 'Caveat', cursive;
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+    .card {
+      max-width: 780px;
+      margin: 0 auto;
+      background: var(--surface);
+      border-radius: 18px;
+      padding: 3rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.3);
+    }
+    .category-tag {
+      display: inline-block;
+      background: var(--surface2);
+      color: var(--accent);
+      font-family: 'Caveat', cursive;
+      font-size: 0.95rem;
+      padding: 0.3rem 1rem;
+      border-radius: 20px;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border);
+    }
+    h1 {
+      font-size: 2.8rem;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      font-style: italic;
+    }
+    .meta {
+      color: var(--text-dim);
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .content {
+      font-size: 1.2rem;
+      line-height: 1.8;
+      white-space: pre-wrap;
+    }
+    .tags {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .tag {
+      background: var(--surface2);
+      color: var(--text-dim);
+      font-family: 'Caveat', cursive;
+      padding: 0.2rem 0.8rem;
+      border-radius: 12px;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <a class="back-link" href="../index.html">← Back to Hall</a>
+  <div class="card">
+    <span class="category-tag">{{CATEGORY}}</span>
+    <h1>{{TITLE}}</h1>
+    <div class="meta">{{DATE}}</div>
+    <div class="content">{{CONTENT}}</div>
+    <div class="tags">{{TAGS}}</div>
+  </div>
+</body>
+</html>
