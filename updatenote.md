@@ -1,4 +1,4 @@
-# Update Notes
+## Update Notes
 
 ======================================================================================================================================
 **New update Apr 27**
@@ -61,22 +61,28 @@ To improve tracking and maintainability, the database schema should be updated t
 * **Structure:** Every idea and category should have an associated `activity_log` array.
 * **Tracked Events:** Creation date, edit timestamps, status changes (e.g., Draft to Published), and deletion logs.
 
-**Proposed JSON Structure:**
-```json
-{
-  "idea_id": "DS-2024-001",
-  "title": "Data Science Portfolio",
-  "status": "In Progress",
-  "logs": [
-    {
-      "timestamp": "2024-04-27 10:00",
-      "action": "CREATED",
-      "user": "Jasverine"
-    },
-    {
-      "timestamp": "2024-04-27 15:30",
-      "action": "UPDATED",
-      "details": "Added reference links"
-    }
-  ]
-}
+======================================================================================================================================
+**New update Apr 27 12:27 PM**
+
+### 2. New Data Architecture (Folder-based Storage)
+Refactor the storage system to use a structured folder hierarchy for better asset management and scalability.
+
+* **Folder Structure:** Each individual idea will have its own dedicated directory at `data/[idea_id]/`.
+    * This folder will contain all associated assets: text content, images, and any other idea-specific files.
+* **Centralized Metadata (Summary JSON):** A master JSON file (e.g., `data/summary.json`) will be implemented to act as the primary database for the website's index.
+    * **Fields included:** `id`, `title`, `tag`, `categories`, `created_date`, `modified_date`, `cover_image_path`, etc.
+    * **Purpose:** This allows the website to load the Grid View and search features instantly without having to scan every individual idea folder.
+
+**Proposed Directory Mapping:**
+```text
+/root
+  /data
+    /summary.json (Master metadata list)
+    /DS-2024-001 (Idea Folder)
+       - content.html/md
+       - image1.jpg
+       - references.json
+    /AI-2024-005 (Idea Folder)
+       - content.html/md
+       - cover.png
+```
