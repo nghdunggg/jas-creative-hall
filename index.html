@@ -277,6 +277,150 @@ textarea.finp{resize:vertical;min-height:100px;line-height:1.6;}
 ::-webkit-scrollbar{width:5px;}
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:3px;}
+
+/* ─── DETAIL PANEL ───────────────────────────────── */
+#detail-overlay{
+  position:fixed;inset:0;z-index:300;
+  background:rgba(12,8,5,.7);backdrop-filter:blur(5px);
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
+#detail-overlay.open{opacity:1;pointer-events:all;}
+
+#detail-panel{
+  position:fixed;top:0;right:0;bottom:0;z-index:301;
+  width:min(720px,100vw);
+  background:var(--bg2);
+  border-left:1px solid var(--border);
+  box-shadow:-12px 0 60px rgba(0,0,0,.55);
+  display:flex;flex-direction:column;
+  transform:translateX(100%);
+  transition:transform .35s cubic-bezier(.22,.68,0,1.1);
+  overflow:hidden;
+}
+#detail-panel.open{transform:translateX(0);}
+
+/* hero inside panel */
+.dp-hero{
+  position:relative;flex-shrink:0;
+  height:240px;overflow:hidden;background:var(--surface);
+}
+.dp-hero-img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.55);}
+.dp-hero-ph{
+  width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+  font-size:5rem;background:linear-gradient(135deg,var(--bg),var(--surface2));
+}
+.dp-hero-grad{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom,rgba(0,0,0,.1) 20%,rgba(42,31,26,.97));
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:1.6rem 2rem;
+}
+.dp-back{
+  position:absolute;top:.9rem;left:1rem;
+  display:inline-flex;align-items:center;gap:.35rem;
+  background:rgba(0,0,0,.42);backdrop-filter:blur(6px);
+  border:none;border-radius:99px;padding:.28rem .85rem;
+  color:rgba(255,255,255,.7);font-family:'Caveat',cursive;font-size:.95rem;
+  cursor:pointer;transition:color .18s;
+}
+.dp-back:hover{color:#fff;}
+.dp-actions{
+  position:absolute;top:.9rem;right:1rem;
+  display:flex;gap:.4rem;
+}
+.dp-action-btn{
+  display:inline-flex;align-items:center;gap:.3rem;
+  background:rgba(0,0,0,.42);backdrop-filter:blur(6px);
+  border:1px solid rgba(255,255,255,.12);border-radius:99px;
+  padding:.28rem .85rem;color:rgba(255,255,255,.65);
+  font-family:'Caveat',cursive;font-size:.9rem;cursor:pointer;
+  transition:all .18s;
+}
+.dp-action-btn:hover{color:var(--accent);border-color:var(--accent);}
+.dp-action-btn.del-btn:hover{color:var(--danger);border-color:var(--danger);}
+.dp-cat{
+  font-family:'Caveat',cursive;font-size:.85rem;color:var(--accent);
+  background:rgba(0,0,0,.45);backdrop-filter:blur(4px);
+  padding:.2rem .75rem;border-radius:99px;margin-bottom:.5rem;
+  display:inline-block;width:fit-content;
+}
+.dp-title{
+  font-size:clamp(1.4rem,3.5vw,2.1rem);font-weight:300;font-style:italic;
+  color:#fff;line-height:1.22;text-shadow:0 2px 12px rgba(0,0,0,.6);
+}
+.dp-date{font-size:.78rem;color:rgba(255,255,255,.45);margin-top:.3rem;}
+
+/* scrollable body */
+.dp-body{
+  flex:1;overflow-y:auto;padding:2rem 2.2rem 3rem;
+}
+@media(max-width:500px){.dp-body{padding:1.4rem 1.2rem 2.5rem;}}
+
+/* content blocks */
+.dp-body .idea-p{font-size:1.1rem;line-height:1.88;margin-bottom:.95rem;}
+.dp-body .idea-h2{font-size:1.4rem;font-weight:600;color:var(--accent);
+  margin:1.7rem 0 .6rem;font-style:italic;}
+.dp-body .idea-quote{border-left:3px solid var(--accent-dim);padding:.45rem 1rem;
+  color:var(--text-dim);font-style:italic;font-size:1.02rem;margin:.9rem 0;
+  background:rgba(201,168,130,.05);border-radius:0 7px 7px 0;}
+.dp-body .idea-hr{border:none;border-top:1px solid var(--border);margin:1.5rem 0;}
+.dp-body .idea-figure{margin:1.4rem 0;text-align:center;}
+.dp-body .idea-img{
+  max-width:100%;border-radius:10px;cursor:zoom-in;
+  border:1px solid var(--border);transition:transform .2s;
+  display:block;margin:0 auto;
+}
+.dp-body .idea-img:hover{transform:scale(1.015);}
+.dp-body .idea-figure figcaption{
+  font-size:.83rem;color:var(--text-dim);font-style:italic;margin-top:.45rem;
+}
+
+/* tags */
+.dp-tags{
+  display:flex;flex-wrap:wrap;gap:.4rem;
+  margin-top:1.8rem;padding-top:1.3rem;border-top:1px solid var(--border);
+}
+.dp-tag{
+  background:var(--surface2);color:var(--text-dim);
+  font-family:'Caveat',cursive;padding:.18rem .75rem;border-radius:11px;font-size:.88rem;
+}
+
+/* refs inside panel */
+.dp-section{background:var(--surface);border-radius:11px;padding:1.3rem 1.5rem;
+  border:1px solid var(--border);margin-top:1.2rem;}
+.dp-section-title{font-family:'Caveat',cursive;font-size:1.15rem;color:var(--accent);
+  margin-bottom:.85rem;padding-bottom:.5rem;border-bottom:1px solid var(--border);}
+.dp-ref-list{display:flex;flex-direction:column;gap:.5rem;}
+.dp-ref{
+  background:var(--bg2);border:1px solid var(--border);border-radius:9px;
+  padding:.7rem .9rem;display:flex;align-items:flex-start;gap:.6rem;
+  text-decoration:none;color:inherit;transition:all .18s;
+}
+.dp-ref:hover{border-color:var(--border2);background:var(--surface2);}
+.dp-ref-icon{font-size:.95rem;flex-shrink:0;width:28px;height:28px;
+  background:var(--surface2);border-radius:6px;display:flex;align-items:center;justify-content:center;}
+.dp-ref-body{flex:1;min-width:0;}
+.dp-ref-label{font-family:'Caveat',cursive;font-size:.98rem;color:var(--accent);}
+.dp-ref-url{font-size:.74rem;color:var(--text-dim);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:.05rem;}
+.dp-ref-note{font-size:.86rem;color:var(--text-dim);margin-top:.18rem;font-style:italic;}
+
+/* lightbox (reuse) */
+#dp-lb{
+  position:fixed;inset:0;z-index:400;
+  background:rgba(8,5,3,.93);backdrop-filter:blur(9px);
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .22s;
+}
+#dp-lb.open{opacity:1;pointer-events:all;}
+#dp-lb img{max-width:92vw;max-height:90vh;border-radius:10px;box-shadow:0 16px 70px rgba(0,0,0,.8);}
+#dp-lb-x{
+  position:absolute;top:1rem;right:1rem;
+  background:rgba(0,0,0,.55);border:none;border-radius:50%;
+  width:38px;height:38px;display:flex;align-items:center;justify-content:center;
+  color:rgba(255,255,255,.6);font-size:1.15rem;cursor:pointer;transition:color .18s;
+}
+#dp-lb-x:hover{color:#fff;}
 </style>
 </head>
 <body>
@@ -469,6 +613,36 @@ textarea.finp{resize:vertical;min-height:100px;line-height:1.6;}
   </div>
 </div>
 
+<!-- ══ DETAIL PANEL ══ -->
+<div id="detail-overlay" onclick="closeDetail()"></div>
+<div id="detail-panel">
+
+  <!-- hero -->
+  <div class="dp-hero" id="dp-hero">
+    <div class="dp-hero-ph" id="dp-hero-ph">📝</div>
+    <img class="dp-hero-img" id="dp-hero-img" src="" alt="" style="display:none;">
+    <div class="dp-hero-grad">
+      <button class="dp-back" onclick="closeDetail()">← Back</button>
+      <div class="dp-actions" id="dp-actions"></div>
+      <div class="dp-cat" id="dp-cat"></div>
+      <div class="dp-title" id="dp-title"></div>
+      <div class="dp-date" id="dp-date"></div>
+    </div>
+  </div>
+
+  <!-- scrollable content -->
+  <div class="dp-body" id="dp-body">
+    <!-- filled by openDetail() -->
+  </div>
+
+</div><!-- #detail-panel -->
+
+<!-- detail lightbox -->
+<div id="dp-lb" onclick="closeDpLb()">
+  <button id="dp-lb-x" onclick="closeDpLb()">✕</button>
+  <img id="dp-lb-img" src="" alt="">
+</div>
+
 <!-- ══════════════════════════════════════════════════
      JAVASCRIPT
 ═══════════════════════════════════════════════════ -->
@@ -631,17 +805,21 @@ function renderIdeas(){
 }
 
 function buildCard(idea, i){
-  const cover   = idea.cover||'';
-  const catObj  = categories.find(c=>c.name===idea.category)||{emoji:'📝'};
-  const badges  = badgesHtml(idea);
-  const filePath= 'ideas/'+idea.file;
+  const cover  = idea.cover||'';
+  const catObj = categories.find(c=>c.name===idea.category)||{emoji:'📝'};
+  const badges = badgesHtml(idea);
+  const fi     = xAttr(idea.file);
+  const ti     = xAttr(idea.title);
 
   if(viewMode==='list'){
-    const a = document.createElement('a');
-    a.className = 'idea-list-card';
-    a.href      = filePath;
-    a.style.animationDelay = (i*0.04)+'s';
-    a.innerHTML = (cover
+    const div = document.createElement('div');
+    div.className = 'idea-list-card';
+    div.style.animationDelay = (i*0.04)+'s';
+    div.setAttribute('role','button');
+    div.setAttribute('tabindex','0');
+    div.onclick = ()=>openDetail(idea.file);
+    div.onkeydown = e=>{ if(e.key==='Enter'||e.key===' ') openDetail(idea.file); };
+    div.innerHTML = (cover
       ? '<img class="list-thumb" src="'+xAttr(cover)+'" alt="" loading="lazy">'
       : '<div class="list-thumb-ph">'+xTxt(catObj.emoji||'📝')+'</div>')
       + '<div class="list-body">'
@@ -650,17 +828,20 @@ function buildCard(idea, i){
         + '<div class="list-preview">'+xTxt((idea.content||'').slice(0,130))+'</div>'
         + '<div class="list-foot">'+badges+'</div>'
       + '</div>'
-      + '<div class="card-actions" onclick="event.preventDefault();event.stopPropagation();">'
-        + '<button class="act-btn" title="Edit" onclick="openEditModal(\''+xAttr(idea.file)+'\')">✏</button>'
-        + '<button class="act-btn del" title="Delete" onclick="askDelete(\''+xAttr(idea.file)+'\',\''+xAttr(idea.title)+'\')">🗑</button>'
+      + '<div class="card-actions" onclick="event.stopPropagation();">'
+        + '<button class="act-btn" title="Edit" onclick="openEditModal(\''+fi+'\')">✏</button>'
+        + '<button class="act-btn del" title="Delete" onclick="askDelete(\''+fi+'\',\''+ti+'\')">🗑</button>'
       + '</div>';
-    return a;
+    return div;
   } else {
-    const a = document.createElement('a');
-    a.className = 'idea-block-card';
-    a.href      = filePath;
-    a.style.animationDelay = (i*0.04)+'s';
-    a.innerHTML = (cover
+    const div = document.createElement('div');
+    div.className = 'idea-block-card';
+    div.style.animationDelay = (i*0.04)+'s';
+    div.setAttribute('role','button');
+    div.setAttribute('tabindex','0');
+    div.onclick = ()=>openDetail(idea.file);
+    div.onkeydown = e=>{ if(e.key==='Enter'||e.key===' ') openDetail(idea.file); };
+    div.innerHTML = (cover
       ? '<img class="block-cover" src="'+xAttr(cover)+'" alt="" loading="lazy">'
       : '<div class="block-cover-ph">'+xTxt(catObj.emoji||'📝')+'</div>')
       + '<div class="block-body">'
@@ -669,11 +850,11 @@ function buildCard(idea, i){
         + '<div class="block-preview">'+xTxt((idea.content||'').slice(0,160))+'</div>'
         + '<div class="block-foot">'+badges+'</div>'
       + '</div>'
-      + '<div class="block-card-actions" onclick="event.preventDefault();event.stopPropagation();">'
-        + '<button class="act-btn" title="Edit" onclick="openEditModal(\''+xAttr(idea.file)+'\')">✏</button>'
-        + '<button class="act-btn del" title="Delete" onclick="askDelete(\''+xAttr(idea.file)+'\',\''+xAttr(idea.title)+'\')">🗑</button>'
+      + '<div class="block-card-actions" onclick="event.stopPropagation();">'
+        + '<button class="act-btn" title="Edit" onclick="openEditModal(\''+fi+'\')">✏</button>'
+        + '<button class="act-btn del" title="Delete" onclick="askDelete(\''+fi+'\',\''+ti+'\')">🗑</button>'
       + '</div>';
-    return a;
+    return div;
   }
 }
 
